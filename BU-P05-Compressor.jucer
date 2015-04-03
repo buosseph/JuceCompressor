@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="lxG6Y2" name="BU-P05-Compressor" projectType="audioplug"
+              version="1.0.0" bundleIdentifier="com.yourcompany.BUP05Compressor"
+              includeBinaryInAppConfig="1" buildVST="1" buildVST3="0" buildAU="0"
+              buildRTAS="0" buildAAX="0" pluginName="BU-P05-Compressor" pluginDesc="BU-P05-Compressor"
+              pluginManufacturer="musi45" pluginManufacturerCode="Manu" pluginCode="Plug"
+              pluginChannelConfigs="{2, 2}" pluginIsSynth="0" pluginWantsMidiIn="0"
+              pluginProducesMidiOut="0" pluginSilenceInIsSilenceOut="0" pluginEditorRequiresKeys="0"
+              pluginAUExportPrefix="BUP05CompressorAU" pluginRTASCategory=""
+              aaxIdentifier="com.yourcompany.BUP05Compressor" pluginAAXCategory="AAX_ePlugInCategory_Dynamics"
+              jucerVersion="3.1.0">
+  <MAINGROUP id="avlI4O" name="BU-P05-Compressor">
+    <GROUP id="{64536B46-BF38-D0BF-5341-33FB5A75BEA9}" name="Source">
+      <FILE id="RydnYQ" name="UParam.h" compile="0" resource="0" file="Source/UParam.h"/>
+      <FILE id="kVaUFd" name="PluginEditor.cpp" compile="1" resource="0"
+            file="Source/PluginEditor.cpp"/>
+      <FILE id="Dcto12" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <FILE id="E2rWnS" name="PluginLookAndFeel.cpp" compile="1" resource="0"
+            file="Source/PluginLookAndFeel.cpp"/>
+      <FILE id="yYj8kp" name="PluginLookAndFeel.h" compile="0" resource="0"
+            file="Source/PluginLookAndFeel.h"/>
+      <FILE id="AsREa8" name="PluginProcessor.cpp" compile="1" resource="0"
+            file="Source/PluginProcessor.cpp"/>
+      <FILE id="DGBslx" name="PluginProcessor.h" compile="0" resource="0"
+            file="Source/PluginProcessor.h"/>
+    </GROUP>
+  </MAINGROUP>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" osxSDK="default" osxCompatibility="default" osxArchitecture="default"
+                       isDebug="1" optimisation="1" targetName="BU-P05-Compressor"/>
+        <CONFIGURATION name="Release" osxSDK="default" osxCompatibility="default" osxArchitecture="default"
+                       isDebug="0" optimisation="2" targetName="BU-P05-Compressor"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../JUCE-OSX/modules"/>
+        <MODULEPATH id="juce_events" path="../JUCE-OSX/modules"/>
+        <MODULEPATH id="juce_graphics" path="../JUCE-OSX/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../JUCE-OSX/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../JUCE-OSX/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../JUCE-OSX/modules"/>
+        <MODULEPATH id="juce_cryptography" path="../JUCE-OSX/modules"/>
+        <MODULEPATH id="juce_video" path="../JUCE-OSX/modules"/>
+        <MODULEPATH id="juce_opengl" path="../JUCE-OSX/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../JUCE-OSX/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../JUCE-OSX/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../JUCE-OSX/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../JUCE-OSX/modules"/>
+        <MODULEPATH id="juce_audio_plugin_client" path="../JUCE-OSX/modules"/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULES id="juce_audio_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_audio_devices" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_audio_formats" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_audio_processors" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_core" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_cryptography" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_data_structures" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_events" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_graphics" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_gui_basics" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_gui_extra" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_opengl" showAllCode="1" useLocalCopy="0"/>
+    <MODULES id="juce_video" showAllCode="1" useLocalCopy="0"/>
+  </MODULES>
+  <JUCEOPTIONS JUCE_QUICKTIME="disabled"/>
+</JUCERPROJECT>
