@@ -44,6 +44,7 @@
 		AF581CA5F37D58DB78496F35 /* juce_audio_processors.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67BC4F9AB88D74B4C5C34ACC /* juce_audio_processors.mm */; };
 		BB6B6CC352539C9E3BE7AE29 /* PluginEditor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 21373222640E58EF727BE82E /* PluginEditor.cpp */; };
 		BE8B7113E211F3F3228703A4 /* juce_gui_basics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7212FC13879EBD1FEBFDD7F2 /* juce_gui_basics.mm */; };
+		C5B0411C1ACEFE2F00DC278B /* PeakLevelDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C5B0411B1ACEFE2F00DC278B /* PeakLevelDetector.cpp */; };
 		CE9842EF6B36D70B38B54128 /* juce_AU_Wrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 17AD715DAEA05248DA38E787 /* juce_AU_Wrapper.mm */; };
 		D3849015123AAC778701541C /* juce_VST_Wrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 11B1C783B5B2040B2DFD6AAE /* juce_VST_Wrapper.mm */; };
 		D69C680AAACD5170D9E86492 /* juce_RTAS_DigiCode3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0A9A47AE62D57C24920343EC /* juce_RTAS_DigiCode3.cpp */; settings = {COMPILER_FLAGS = "-w"; }; };
@@ -759,6 +760,8 @@
 		C54E35E7F99E547453220D93 /* juce_PluginListComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_PluginListComponent.h; path = "../../../JUCE-OSX/modules/juce_audio_processors/scanning/juce_PluginListComponent.h"; sourceTree = SOURCE_ROOT; };
 		C553AD3056877CFA2C12B16C /* juce_AudioFormatReader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_AudioFormatReader.h; path = "../../../JUCE-OSX/modules/juce_audio_formats/format/juce_AudioFormatReader.h"; sourceTree = SOURCE_ROOT; };
 		C55BD77A1B59135EB3E7E325 /* juce_Thread.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_Thread.h; path = "../../../JUCE-OSX/modules/juce_core/threads/juce_Thread.h"; sourceTree = SOURCE_ROOT; };
+		C5B0411A1ACEFD8F00DC278B /* PeakLevelDetector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PeakLevelDetector.h; path = ../../Source/PeakLevelDetector.h; sourceTree = "<group>"; };
+		C5B0411B1ACEFE2F00DC278B /* PeakLevelDetector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PeakLevelDetector.cpp; path = ../../Source/PeakLevelDetector.cpp; sourceTree = "<group>"; };
 		C5B73C1959ACA37B2154C0D2 /* juce_AudioFormat.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_AudioFormat.h; path = "../../../JUCE-OSX/modules/juce_audio_formats/format/juce_AudioFormat.h"; sourceTree = SOURCE_ROOT; };
 		C5DC0076D00AEB1EF778CAF5 /* juce_linux_Clipboard.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_linux_Clipboard.cpp; path = "../../../JUCE-OSX/modules/juce_gui_basics/native/juce_linux_Clipboard.cpp"; sourceTree = SOURCE_ROOT; };
 		C64AB8A0878BA5C68650719D /* juce_MidiMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_MidiMessage.h; path = "../../../JUCE-OSX/modules/juce_audio_basics/midi/juce_MidiMessage.h"; sourceTree = SOURCE_ROOT; };
@@ -2686,6 +2689,8 @@
 				993C608EF8B2AC31554F4A92 /* PluginLookAndFeel.h */,
 				B9954597AD52DAFCBD0DE2E6 /* PluginProcessor.cpp */,
 				A9CB4C7B35B37F869CED40E3 /* PluginProcessor.h */,
+				C5B0411A1ACEFD8F00DC278B /* PeakLevelDetector.h */,
+				C5B0411B1ACEFE2F00DC278B /* PeakLevelDetector.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -2844,6 +2849,7 @@
 				3BC9EB888CAF5A32CCDF09FD /* PluginProcessor.cpp in Sources */,
 				734E291A1B6963BFE6A88F0B /* juce_AAX_Wrapper.cpp in Sources */,
 				A3840CD4E29861BDBC0FBBFE /* juce_AAX_Wrapper.mm in Sources */,
+				C5B0411C1ACEFE2F00DC278B /* PeakLevelDetector.cpp in Sources */,
 				CE9842EF6B36D70B38B54128 /* juce_AU_Wrapper.mm in Sources */,
 				AB7089629BDA37C2F9B0594F /* juce_audio_basics.mm in Sources */,
 				0007923EB5544213D29B8F61 /* juce_audio_devices.mm in Sources */,

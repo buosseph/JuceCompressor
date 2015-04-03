@@ -95,8 +95,8 @@ void PluginAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
     if (sliderThatWasMoved == thresholdSlider)
     {
         //[UserSliderCode_thresholdSlider] -- add your slider handling code here..
-        normalizedValue = processor.userParams[processor.limThreshold].setWithUparam(sliderThatWasMoved->getValue());
-        processor.setParameterNotifyingHost(processor.limThreshold, normalizedValue);
+        normalizedValue = processor.userParams[processor.threshold].setWithUparam(sliderThatWasMoved->getValue());
+        processor.setParameterNotifyingHost(processor.threshold, normalizedValue);
         //[/UserSliderCode_thresholdSlider]
     }
 
@@ -111,7 +111,7 @@ void PluginAudioProcessorEditor::timerCallback() {
     // Set UI values to match any changes made by host automation
     // Timer conflicts cause UI stuttering, this is due to the values not being mapped back
     
-    thresholdSlider->setValue(processor.userParams[processor.limThreshold].getUparamVal(), dontSendNotification);
+    thresholdSlider ->setValue(processor.userParams[processor.threshold].getUparamVal(), dontSendNotification);
 }
 //[/MiscUserCode]
 

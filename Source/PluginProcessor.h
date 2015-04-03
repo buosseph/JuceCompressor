@@ -13,6 +13,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "UParam.h"
+#include "PeakLevelDetector.h"
 
 #define dB(x) 20.0 * ((x) > 0.00001 ? log10(x) : -5.0)
 #define dB2mag(x) pow(10.0, (x) / 20.0)
@@ -70,7 +71,7 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
     enum Parameters {
-        limThreshold,
+        threshold,
         totalNumParams
     };
     
@@ -80,15 +81,16 @@ public:
 private:
     const float DEFAULT_VST_THRESHOLD = 1.f;
     
-    float fs, gain, gainDb, thresholdDb;
+    float fs, thresholdDb;
     
-    // peak level detector variables
-    float b0, a1, inAbsL, inAbsR, peakOutL, peakOutR, peakOutDbL, peakOutDbR;
-    float b0a, b0d;
-    float attackDelayTime = 0.100f; // seconds
+    // Peak Level Detectors
+    ScopedPointer<PeakLevelDetector> leftLevelDetector, rightLevelDetector;
+    float peakOutL, peakOutR, peakSum, peakSumDb;
+    
+    // Gains
+    float gain, gainDb;
     
     void setThresh();
-    void setPeakDetector();
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginAudioProcessor)
 };

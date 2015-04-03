@@ -10,14 +10,13 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
-#include <math.h>
 
 
 //==============================================================================
 PluginAudioProcessor::PluginAudioProcessor()
 {
-    userParams[limThreshold].setMinMax(-20.f, 0.f);
-    userParams[limThreshold].setWithUparam(DEFAULT_THRESHOLD);
+    userParams[threshold].setMinMax(-20.f, 0.f);
+    userParams[threshold].setWithUparam(DEFAULT_THRESHOLD);
 }
 
 PluginAudioProcessor::~PluginAudioProcessor()
@@ -44,7 +43,7 @@ void PluginAudioProcessor::setParameter (int index, float newValue)
 {
     userParams[index].setWithVstVal(newValue);
     switch (index) {
-        case limThreshold:
+        case threshold:
             setThresh();
             break;
         default:    break;
@@ -54,7 +53,7 @@ void PluginAudioProcessor::setParameter (int index, float newValue)
 float PluginAudioProcessor::getParameterDefaultValue (int index)
 {
     switch (index) {
-        case limThreshold:  return DEFAULT_THRESHOLD;
+        case threshold:  return DEFAULT_THRESHOLD;
         default:    return 0.0f;
     }
 }
@@ -62,7 +61,7 @@ float PluginAudioProcessor::getParameterDefaultValue (int index)
 const String PluginAudioProcessor::getParameterName (int index)
 {
     switch (index) {
-        case limThreshold: return "Threshold";
+        case threshold: return "Threshold";
         default:    return String::empty;
     }
 }
@@ -70,7 +69,7 @@ const String PluginAudioProcessor::getParameterName (int index)
 const String PluginAudioProcessor::getParameterText (int index)
 {
     switch (index) {
-        case limThreshold: return String(thresholdDb, 2) + "db";
+        case threshold: return String(thresholdDb, 2) + "db";
         default:    return String(getParameter(index), 2);
     }
 }
@@ -148,19 +147,9 @@ void PluginAudioProcessor::changeProgramName (int index, const String& newName)
 }
 
 void PluginAudioProcessor::setThresh() {
-    thresholdDb = userParams[limThreshold].getUparamVal();
+    thresholdDb = userParams[threshold].getUparamVal();
 }
 
-void PluginAudioProcessor::setPeakDetector() {
-    peakOutL = 0.f;
-    peakOutR = 0.f;
-    
-    // set coefficients for leaky integrator
-    b0a = 1.f;
-    a1 = expf(-1 / (attackDelayTime * fs));
-    b0d = 1.f - a1;
-    
-}
 //==============================================================================
 void PluginAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
@@ -168,8 +157,17 @@ void PluginAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock
     // initialisation that you need..
     fs = sampleRate;
     setThresh();
-    setPeakDetector();
     gain = 1.f;
+    
+    if (leftLevelDetector == nullptr && rightLevelDetector == nullptr) {
+        leftLevelDetector   = new PeakLevelDetector(sampleRate);
+        rightLevelDetector  = new PeakLevelDetector(sampleRate);
+    }
+    else {
+        leftLevelDetector   ->setDetector(sampleRate);
+        rightLevelDetector  ->setDetector(sampleRate);
+    }
+
 }
 
 void PluginAudioProcessor::releaseResources()
@@ -196,44 +194,26 @@ void PluginAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& 
     
     for (int i = 0; i < buffer.getNumSamples(); i++) {
         // Peak detector
-        inAbsL = fabs(leftChannelData[i]);
-        inAbsR = fabs(rightChannelData[i]);
-        
-        if (peakOutL > inAbsL) {
-            b0 = b0a;
-        }
-        else {
-            b0 = b0d;
-        }
-        
-        peakOutL += b0 * (inAbsL - peakOutL);
-        peakOutR += b0 * (inAbsR - peakOutR);
-        
+        peakOutL = leftLevelDetector->tick(leftChannelData[i]);
+        peakOutR = leftLevelDetector->tick(leftChannelData[i]);
+        peakSum = (peakOutL + peakOutR) * 0.5f;
         
         // Convert to db
-        peakOutDbL = dB(peakOutL);
-        peakOutDbR = dB(peakOutR);
+        peakSumDb = dB(peakSum);
         
         // Calculate gain
-        if (peakOutDbL < thresholdDb) {
+        if (peakSumDb < thresholdDb) {
             gainDb = 0.f;
         }
         else {
-            gainDb = -(peakOutDbL = thresholdDb);
-        }
-
-        if (peakOutDbR < thresholdDb) {
-            gainDb = 0.f;
-        }
-        else {
-            gainDb = -(peakOutDbR = thresholdDb);
+            gainDb = -(peakSumDb - thresholdDb);
         }
         
         // Convert to Linear
         gain = dB2mag(gainDb);
         
         // Apply gain
-        leftChannelData[i] *= gain;
+        leftChannelData[i]  *= gain;
         rightChannelData[i] *= gain;
     }
 }
