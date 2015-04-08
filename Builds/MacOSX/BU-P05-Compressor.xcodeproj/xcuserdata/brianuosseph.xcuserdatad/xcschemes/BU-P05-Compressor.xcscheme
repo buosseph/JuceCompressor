@@ -39,10 +39,6 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <PathRunnable
-         runnableDebuggingMode = "0"
-         FilePath = "/Users/brianuosseph/Desktop/Course Work/S15/musi4545/JUCE-OSX/examples/audio plugin host/Builds/MacOSX/build/Debug/Plugin Host.app">
-      </PathRunnable>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"

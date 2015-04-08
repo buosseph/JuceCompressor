@@ -14,6 +14,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "UParam.h"
 #include "PeakLevelDetector.h"
+#include "LeakyIntegrator.h"
 
 #define dB(x) 20.0 * ((x) > 0.00001 ? log10(x) : -5.0)
 #define dB2mag(x) pow(10.0, (x) / 20.0)
@@ -72,25 +73,34 @@ public:
 
     enum Parameters {
         threshold,
+        ratio,
+        attack,
+        release,
         totalNumParams
     };
     
     UParam userParams[totalNumParams];
 
     const float DEFAULT_THRESHOLD = 0.f;
+    const float DEFAULT_RATIO = 1.f;
 private:
     const float DEFAULT_VST_THRESHOLD = 1.f;
+    const float DEFAULT_VST_RATIO = 0.f;
     
-    float fs, thresholdDb;
+    float fs, thresholdDb, aRatio, attackTime, releaseTime, aAttack, aRelease;
     
     // Peak Level Detectors
     ScopedPointer<PeakLevelDetector> leftLevelDetector, rightLevelDetector;
     float peakOutL, peakOutR, peakSum, peakSumDb;
     
+    // Gain Dynamics
+    ScopedPointer<GainDynamics> gainDymanics;
+    
     // Gains
     float gain, gainDb;
     
     void setThresh();
+    void setRatio();
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginAudioProcessor)
 };

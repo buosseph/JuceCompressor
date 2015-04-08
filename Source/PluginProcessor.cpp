@@ -17,6 +17,12 @@ PluginAudioProcessor::PluginAudioProcessor()
 {
     userParams[threshold].setMinMax(-20.f, 0.f);
     userParams[threshold].setWithUparam(DEFAULT_THRESHOLD);
+    
+    userParams[ratio].setMinMax(1.f, 10.f);
+    userParams[ratio].setWithUparam(DEFAULT_RATIO);
+    
+    attackTime = .250f;     // seconds
+    releaseTime = .500f;    // seconds
 }
 
 PluginAudioProcessor::~PluginAudioProcessor()
@@ -46,6 +52,9 @@ void PluginAudioProcessor::setParameter (int index, float newValue)
         case threshold:
             setThresh();
             break;
+        case ratio:
+            setRatio();
+            break;
         default:    break;
     }
 }
@@ -53,7 +62,8 @@ void PluginAudioProcessor::setParameter (int index, float newValue)
 float PluginAudioProcessor::getParameterDefaultValue (int index)
 {
     switch (index) {
-        case threshold:  return DEFAULT_THRESHOLD;
+        case threshold:  return DEFAULT_VST_THRESHOLD;
+        case ratio: return DEFAULT_VST_RATIO;
         default:    return 0.0f;
     }
 }
@@ -62,6 +72,7 @@ const String PluginAudioProcessor::getParameterName (int index)
 {
     switch (index) {
         case threshold: return "Threshold";
+        case ratio: return "Ratio";
         default:    return String::empty;
     }
 }
@@ -70,6 +81,7 @@ const String PluginAudioProcessor::getParameterText (int index)
 {
     switch (index) {
         case threshold: return String(thresholdDb, 2) + "db";
+        case ratio: return String(userParams[index].getUparamVal(), 2);
         default:    return String(getParameter(index), 2);
     }
 }
@@ -150,6 +162,10 @@ void PluginAudioProcessor::setThresh() {
     thresholdDb = userParams[threshold].getUparamVal();
 }
 
+void PluginAudioProcessor::setRatio() {
+    aRatio = userParams[ratio].getUparamVal();
+}
+
 //==============================================================================
 void PluginAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
@@ -157,7 +173,12 @@ void PluginAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock
     // initialisation that you need..
     fs = sampleRate;
     setThresh();
+    setRatio();
     gain = 1.f;
+    
+    // Set attack and release
+    aAttack = (attackTime == 0.0f) ? (0.0f) : expf(-1.0f / (attackTime * fs));
+    aRelease = (releaseTime == 0.0f) ? (0.0f) : expf(-1.0f / (releaseTime * fs));
     
     if (leftLevelDetector == nullptr && rightLevelDetector == nullptr) {
         leftLevelDetector   = new PeakLevelDetector(sampleRate);
@@ -167,7 +188,13 @@ void PluginAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock
         leftLevelDetector   ->setDetector(sampleRate);
         rightLevelDetector  ->setDetector(sampleRate);
     }
-
+    
+    if (gainDymanics == nullptr) {
+        gainDymanics = new GainDynamics(sampleRate, attackTime, releaseTime);
+    }
+    else {
+        gainDymanics->setDetector(sampleRate);
+    }
 }
 
 void PluginAudioProcessor::releaseResources()
@@ -206,12 +233,15 @@ void PluginAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& 
             gainDb = 0.f;
         }
         else {
-            gainDb = -(peakSumDb - thresholdDb);
+            gainDb = -(peakSumDb - thresholdDb) * (1.f - 1.f/aRatio);
         }
+
+        // Gain dynamics (attack and release)
+//        gainDb = gainDymanics->tick(gainDb);
         
         // Convert to Linear
         gain = dB2mag(gainDb);
-        
+
         // Apply gain
         leftChannelData[i]  *= gain;
         rightChannelData[i] *= gain;

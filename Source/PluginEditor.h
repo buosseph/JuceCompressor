@@ -75,7 +75,13 @@ private:
 
     //==============================================================================
     ScopedPointer<Slider> thresholdSlider;
+    ScopedPointer<Slider> ratioSlider;
+    ScopedPointer<Label> ratioLabel;
     ScopedPointer<Label> thresholdLabel;
+    ScopedPointer<Slider> attackSlider;
+    ScopedPointer<Label> attackLabel;
+    ScopedPointer<Slider> releaseSlider;
+    ScopedPointer<Label> releaseLabel;
 
 
     //==============================================================================

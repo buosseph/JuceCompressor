@@ -21,7 +21,7 @@ float PeakLevelDetector::tick(float inputSample) {
         b0 = b0Attack;
     }
     else {
-        b0 = b0Decay;
+        b0 = b0Release;
     }
     
     // Simplified filter equation (out = b0 * input + a1 * lastOut)
@@ -36,6 +36,6 @@ void PeakLevelDetector::setDetector(float sampleRate) {
     
     // set coefficients for leaky integrator
     b0Attack = 1.f;
-    a1 = expf(-1 / (attackDelayTime * fs));
-    b0Decay = 1.f - a1;
+    a1 = expf(-1 / (releaseTime * fs));
+    b0Release = 1.f - a1;
 }

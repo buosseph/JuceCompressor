@@ -21,8 +21,8 @@ public:
     
 private:
     float fs, inputAbs, peakOutput;
-    float b0Attack, b0Decay, b0, a1;
-    float attackDelayTime = 0.100f;     // seconds
+    float b0Attack, b0Release, b0, a1;
+    float releaseTime = 0.100f;     // seconds
 };
 
 #endif
