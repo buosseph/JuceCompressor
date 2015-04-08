@@ -8,6 +8,7 @@
 
 #include "LeakyIntegrator.h"
 
+// Times are in seconds (e.g. 100ms = 0.1f, 1.2s = 1.2f)
 GainDynamics::GainDynamics(float sampleRate, float attackTime, float releaseTime) {
     attackTime = attackTime;
     releaseTime = releaseTime;

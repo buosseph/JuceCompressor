@@ -21,8 +21,11 @@ PluginAudioProcessor::PluginAudioProcessor()
     userParams[ratio].setMinMax(1.f, 10.f);
     userParams[ratio].setWithUparam(DEFAULT_RATIO);
     
-    attackTime = .250f;     // seconds
-    releaseTime = .500f;    // seconds
+    // Attack and release are in seconds
+    userParams[attack].setMinMax(0.f, 0.1f);
+    userParams[attack].setWithUparam(DEFAULT_ATTACK);
+    userParams[release].setMinMax(0.f, 1.f);
+    userParams[release].setWithUparam(DEFAULT_RELEASE);
 }
 
 PluginAudioProcessor::~PluginAudioProcessor()
@@ -55,6 +58,12 @@ void PluginAudioProcessor::setParameter (int index, float newValue)
         case ratio:
             setRatio();
             break;
+        case attack:
+            setAttack();
+            break;
+        case release:
+            setRelease();
+            break;
         default:    break;
     }
 }
@@ -62,9 +71,11 @@ void PluginAudioProcessor::setParameter (int index, float newValue)
 float PluginAudioProcessor::getParameterDefaultValue (int index)
 {
     switch (index) {
-        case threshold:  return DEFAULT_VST_THRESHOLD;
-        case ratio: return DEFAULT_VST_RATIO;
-        default:    return 0.0f;
+        case threshold: return DEFAULT_VST_THRESHOLD;
+        case ratio:     return DEFAULT_VST_RATIO;
+        case attack:    return DEFAULT_VST_ATTACK;
+        case release:   return DEFAULT_VST_RELEASE;
+        default:        return 0.0f;
     }
 }
 
@@ -72,8 +83,10 @@ const String PluginAudioProcessor::getParameterName (int index)
 {
     switch (index) {
         case threshold: return "Threshold";
-        case ratio: return "Ratio";
-        default:    return String::empty;
+        case ratio:     return "Ratio";
+        case attack:    return "Attack";
+        case release:   return "Release";
+        default:        return String::empty;
     }
 }
 
@@ -81,8 +94,11 @@ const String PluginAudioProcessor::getParameterText (int index)
 {
     switch (index) {
         case threshold: return String(thresholdDb, 2) + "db";
-        case ratio: return String(userParams[index].getUparamVal(), 2);
-        default:    return String(getParameter(index), 2);
+        case ratio:     return String(userParams[index].getUparamVal(), 2);
+        case attack:
+        case release:
+                        return String(userParams[index].getUparamVal() * 1000.f, 2) + "ms";
+        default:        return String(getParameter(index), 2);
     }
 }
 
@@ -166,6 +182,14 @@ void PluginAudioProcessor::setRatio() {
     aRatio = userParams[ratio].getUparamVal();
 }
 
+void PluginAudioProcessor::setAttack() {
+    aAttack = userParams[attack].getUparamVal();
+}
+
+void PluginAudioProcessor::setRelease() {
+    aRelease = userParams[release].getUparamVal();
+}
+
 //==============================================================================
 void PluginAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
@@ -177,7 +201,7 @@ void PluginAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock
     gain = 1.f;
     
     // Set attack and release
-    aAttack = (attackTime == 0.0f) ? (0.0f) : expf(-1.0f / (attackTime * fs));
+    aAttack  = (attackTime == 0.0f) ? (0.0f) : expf(-1.0f / (attackTime * fs));
     aRelease = (releaseTime == 0.0f) ? (0.0f) : expf(-1.0f / (releaseTime * fs));
     
     if (leftLevelDetector == nullptr && rightLevelDetector == nullptr) {
@@ -216,7 +240,7 @@ void PluginAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& 
 
     // This is the place where you'd normally do the guts of your plugin's
     // audio processing...
-    float* leftChannelData = buffer.getWritePointer (0);
+    float* leftChannelData  = buffer.getWritePointer (0);
     float* rightChannelData = buffer.getWritePointer (1);
     
     for (int i = 0; i < buffer.getNumSamples(); i++) {

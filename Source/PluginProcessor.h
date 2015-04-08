@@ -81,11 +81,16 @@ public:
     
     UParam userParams[totalNumParams];
 
-    const float DEFAULT_THRESHOLD = 0.f;
-    const float DEFAULT_RATIO = 1.f;
+    const float DEFAULT_THRESHOLD   = 0.f;
+    const float DEFAULT_RATIO       = 1.f;
+    const float DEFAULT_ATTACK      = 0.020f;    // seconds
+    const float DEFAULT_RELEASE     = 0.500f;   // seconds
+    
 private:
-    const float DEFAULT_VST_THRESHOLD = 1.f;
-    const float DEFAULT_VST_RATIO = 0.f;
+    const float DEFAULT_VST_THRESHOLD   = 1.0f;
+    const float DEFAULT_VST_RATIO       = 0.0f;
+    const float DEFAULT_VST_ATTACK      = 0.2f;
+    const float DEFAULT_VST_RELEASE     = 0.5f;
     
     float fs, thresholdDb, aRatio, attackTime, releaseTime, aAttack, aRelease;
     
@@ -101,6 +106,8 @@ private:
     
     void setThresh();
     void setRatio();
+    void setAttack();
+    void setRelease();
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PluginAudioProcessor)
 };

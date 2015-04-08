@@ -65,7 +65,7 @@ PluginAudioProcessorEditor::PluginAudioProcessorEditor (PluginAudioProcessor& p)
     thresholdLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (attackSlider = new Slider ("Attack Slider"));
-    attackSlider->setRange (0, 100, 1);
+    attackSlider->setRange (0, 100, 0.01);
     attackSlider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
     attackSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 80, 20);
     attackSlider->setColour (Slider::thumbColourId, Colours::white);
@@ -84,7 +84,7 @@ PluginAudioProcessorEditor::PluginAudioProcessorEditor (PluginAudioProcessor& p)
     attackLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (releaseSlider = new Slider ("Release Slider"));
-    releaseSlider->setRange (0, 1500, 1);
+    releaseSlider->setRange (0, 1000, 0.01);
     releaseSlider->setSliderStyle (Slider::RotaryHorizontalVerticalDrag);
     releaseSlider->setTextBoxStyle (Slider::TextBoxBelow, false, 80, 20);
     releaseSlider->setColour (Slider::thumbColourId, Colours::white);
@@ -190,11 +190,17 @@ void PluginAudioProcessorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
     else if (sliderThatWasMoved == attackSlider)
     {
         //[UserSliderCode_attackSlider] -- add your slider handling code here..
+        // Must convert to seconds before sending to processor
+        normalizedValue = processor.userParams[processor.attack].setWithUparam(sliderThatWasMoved->getValue() / 1000.f);
+        processor.setParameterNotifyingHost(processor.attack, normalizedValue);
         //[/UserSliderCode_attackSlider]
     }
     else if (sliderThatWasMoved == releaseSlider)
     {
         //[UserSliderCode_releaseSlider] -- add your slider handling code here..
+        // Must convert to seconds before sending to processor
+        normalizedValue = processor.userParams[processor.release].setWithUparam(sliderThatWasMoved->getValue() / 1000.f);
+        processor.setParameterNotifyingHost(processor.release, normalizedValue);
         //[/UserSliderCode_releaseSlider]
     }
 
@@ -211,6 +217,9 @@ void PluginAudioProcessorEditor::timerCallback() {
 
     thresholdSlider ->setValue(processor.userParams[processor.threshold].getUparamVal(), dontSendNotification);
     ratioSlider     ->setValue(processor.userParams[processor.ratio].getUparamVal(), dontSendNotification);
+    // Must convert to milliseconds before updating GUI
+    attackSlider    ->setValue(processor.userParams[processor.attack].getUparamVal() * 1000.f, dontSendNotification);
+    releaseSlider   ->setValue(processor.userParams[processor.release].getUparamVal() * 1000.f, dontSendNotification);
 }
 //[/MiscUserCode]
 
@@ -254,7 +263,7 @@ BEGIN_JUCER_METADATA
   <SLIDER name="Attack Slider" id="fbc71e13665cf008" memberName="attackSlider"
           virtualName="" explicitFocusOrder="0" pos="192 48 80 88" thumbcol="ffffffff"
           trackcol="ffffffff" rotarysliderfill="ffffffff" rotaryslideroutline="ffffffff"
-          min="0" max="100" int="1" style="RotaryHorizontalVerticalDrag"
+          min="0" max="100" int="0.010000000000000000208" style="RotaryHorizontalVerticalDrag"
           textBoxPos="TextBoxBelow" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1"/>
   <LABEL name="Attack Label" id="7d7c9a4fc245a53" memberName="attackLabel"
@@ -265,7 +274,7 @@ BEGIN_JUCER_METADATA
   <SLIDER name="Release Slider" id="a213a9ca4aa20bd9" memberName="releaseSlider"
           virtualName="" explicitFocusOrder="0" pos="288 48 80 88" thumbcol="ffffffff"
           trackcol="ffffffff" rotarysliderfill="ffffffff" rotaryslideroutline="ffffffff"
-          min="0" max="1500" int="1" style="RotaryHorizontalVerticalDrag"
+          min="0" max="1000" int="0.010000000000000000208" style="RotaryHorizontalVerticalDrag"
           textBoxPos="TextBoxBelow" textBoxEditable="1" textBoxWidth="80"
           textBoxHeight="20" skewFactor="1"/>
   <LABEL name="Release Label" id="41968c8967492114" memberName="releaseLabel"
