@@ -12,7 +12,6 @@
 		0FCD91D15D0D97B3E041DFF1 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96B698F6F89B1AB7621BB262 /* OpenGL.framework */; };
 		123D75C6B71A280A07BB396E /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = CF13AB5018CB8E9E761FD128 /* RecentFilesMenuTemplate.nib */; };
 		181252132F10BBDF31FC2840 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DA4B495D784C4CEADFCFCF5 /* Accelerate.framework */; };
-		186BA0EE20A5DE7DA8ECF50F /* PluginLookAndFeel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F1A09AC42086C87DA447CEC3 /* PluginLookAndFeel.cpp */; };
 		23A04A6D62F4EF6C578E98B0 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 051A63D1427C3C1FD8472129 /* QTKit.framework */; };
 		30CC5226579667E19E79FDEB /* juce_gui_extra.mm in Sources */ = {isa = PBXBuildFile; fileRef = 77157A70B45548B2363E3628 /* juce_gui_extra.mm */; };
 		33A3CE870EE2EF16556B3432 /* juce_video.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2253FC4940692D896F85F8C7 /* juce_video.mm */; };
@@ -600,7 +599,6 @@
 		984E99C80847CA660C4F6592 /* juce_win32_DragAndDrop.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_win32_DragAndDrop.cpp; path = "../../../JUCE-OSX/modules/juce_gui_basics/native/juce_win32_DragAndDrop.cpp"; sourceTree = SOURCE_ROOT; };
 		99026F1922DD37B05169963A /* juce_CallbackMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_CallbackMessage.h; path = "../../../JUCE-OSX/modules/juce_events/messages/juce_CallbackMessage.h"; sourceTree = SOURCE_ROOT; };
 		99087E6BAF3847346B85FED1 /* juce_GroupComponent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_GroupComponent.cpp; path = "../../../JUCE-OSX/modules/juce_gui_basics/layout/juce_GroupComponent.cpp"; sourceTree = SOURCE_ROOT; };
-		993C608EF8B2AC31554F4A92 /* PluginLookAndFeel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PluginLookAndFeel.h; path = ../../Source/PluginLookAndFeel.h; sourceTree = SOURCE_ROOT; };
 		9A3998F3C838EF3FF878ABD8 /* juce_win32_Files.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_win32_Files.cpp; path = "../../../JUCE-OSX/modules/juce_core/native/juce_win32_Files.cpp"; sourceTree = SOURCE_ROOT; };
 		9A9241F518FBA3F3FE48DF56 /* juce_module_info */ = {isa = PBXFileReference; lastKnownFileType = text; name = juce_module_info; path = "../../../JUCE-OSX/modules/juce_opengl/juce_module_info"; sourceTree = SOURCE_ROOT; };
 		9A9FA946A263B78421F4C186 /* juce_ImageConvolutionKernel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_ImageConvolutionKernel.cpp; path = "../../../JUCE-OSX/modules/juce_graphics/images/juce_ImageConvolutionKernel.cpp"; sourceTree = SOURCE_ROOT; };
@@ -908,7 +906,6 @@
 		F0F7EDEB113370073EDAA76F /* juce_ResizableWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ResizableWindow.h; path = "../../../JUCE-OSX/modules/juce_gui_basics/windows/juce_ResizableWindow.h"; sourceTree = SOURCE_ROOT; };
 		F112C9AE60025E854B55E9AA /* juce_data_structures.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = juce_data_structures.mm; path = "../../../JUCE-OSX/modules/juce_data_structures/juce_data_structures.mm"; sourceTree = SOURCE_ROOT; };
 		F14D86DA12D9F327C7D60419 /* juce_ComboBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ComboBox.h; path = "../../../JUCE-OSX/modules/juce_gui_basics/widgets/juce_ComboBox.h"; sourceTree = SOURCE_ROOT; };
-		F1A09AC42086C87DA447CEC3 /* PluginLookAndFeel.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PluginLookAndFeel.cpp; path = ../../Source/PluginLookAndFeel.cpp; sourceTree = SOURCE_ROOT; };
 		F1C36341FC8C4A7583053336 /* juce_mac_AudioCDReader.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = juce_mac_AudioCDReader.mm; path = "../../../JUCE-OSX/modules/juce_audio_devices/native/juce_mac_AudioCDReader.mm"; sourceTree = SOURCE_ROOT; };
 		F1F1806DEC7684787DD6798A /* juce_Rectangle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_Rectangle.h; path = "../../../JUCE-OSX/modules/juce_graphics/geometry/juce_Rectangle.h"; sourceTree = SOURCE_ROOT; };
 		F23876AFCBD26B32A1DCB5A9 /* juce_OpenGLContext.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_OpenGLContext.cpp; path = "../../../JUCE-OSX/modules/juce_opengl/opengl/juce_OpenGLContext.cpp"; sourceTree = SOURCE_ROOT; };
@@ -2692,8 +2689,6 @@
 				36E3C90682EF9D757B425248 /* UParam.h */,
 				21373222640E58EF727BE82E /* PluginEditor.cpp */,
 				9747DBB856191256E661C735 /* PluginEditor.h */,
-				F1A09AC42086C87DA447CEC3 /* PluginLookAndFeel.cpp */,
-				993C608EF8B2AC31554F4A92 /* PluginLookAndFeel.h */,
 				B9954597AD52DAFCBD0DE2E6 /* PluginProcessor.cpp */,
 				A9CB4C7B35B37F869CED40E3 /* PluginProcessor.h */,
 			);
@@ -2852,7 +2847,6 @@
 				68504D11D72465BC93DBAC5B /* GainDynamics.cpp in Sources */,
 				523DDBB31FF0319F181766B6 /* PeakLevelDetector.cpp in Sources */,
 				BB6B6CC352539C9E3BE7AE29 /* PluginEditor.cpp in Sources */,
-				186BA0EE20A5DE7DA8ECF50F /* PluginLookAndFeel.cpp in Sources */,
 				3BC9EB888CAF5A32CCDF09FD /* PluginProcessor.cpp in Sources */,
 				734E291A1B6963BFE6A88F0B /* juce_AAX_Wrapper.cpp in Sources */,
 				A3840CD4E29861BDBC0FBBFE /* juce_AAX_Wrapper.mm in Sources */,

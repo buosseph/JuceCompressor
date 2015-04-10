@@ -67,7 +67,6 @@ private:
         return static_cast<PluginAudioProcessor&> (processor);
     }
 
-    PluginLookAndFeel pluginLookAndFeel;
     float normalizedValue;
 
     //[/UserVariables]
