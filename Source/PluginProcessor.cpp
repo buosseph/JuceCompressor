@@ -94,10 +94,15 @@ const String PluginAudioProcessor::getParameterText (int index)
 {
     switch (index) {
         case threshold: return String(thresholdDb, 2) + "db";
-        case ratio:     return String(userParams[index].getUparamVal(), 2);
+        case ratio:     return String(userParams[index].getUparamVal(), 2) + ":1";
         case attack:
         case release:
-                        return String(userParams[index].getUparamVal() * 1000.f, 2) + "ms";
+            if (userParams[index].getUparamVal() >= 1.f) {
+                return String(userParams[index].getUparamVal(), 2) + "s";
+            }
+            else {
+                return String(userParams[index].getUparamVal() * 1000.f, 2) + "ms";
+            }
         default:        return String(getParameter(index), 2);
     }
 }

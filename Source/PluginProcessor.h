@@ -92,7 +92,7 @@ private:
     const float DEFAULT_VST_ATTACK      = 0.2f;
     const float DEFAULT_VST_RELEASE     = 0.5f;
     
-    float fs, thresholdDb, aRatio, attackTime, releaseTime, aAttack, aRelease, b0, lastGainDb;
+    float fs, thresholdDb, aRatio, attackTime, releaseTime;
     
     // Peak Level Detectors
     ScopedPointer<PeakLevelDetector> leftLevelDetector, rightLevelDetector;
