@@ -183,11 +183,13 @@ void PluginAudioProcessor::setRatio() {
 }
 
 void PluginAudioProcessor::setAttack() {
-    aAttack = userParams[attack].getUparamVal();
+    attackTime = userParams[attack].getUparamVal();
+    gainDymanics->setAttack(attackTime);
 }
 
 void PluginAudioProcessor::setRelease() {
-    aRelease = userParams[release].getUparamVal();
+    releaseTime = userParams[release].getUparamVal();
+    gainDymanics->setRelease(releaseTime);
 }
 
 //==============================================================================
@@ -196,13 +198,12 @@ void PluginAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
     fs = sampleRate;
+    gain = 1.f;
+
     setThresh();
     setRatio();
-    gain = 1.f;
-    
-    // Set attack and release
-    aAttack  = (attackTime == 0.0f) ? (0.0f) : expf(-1.0f / (attackTime * fs));
-    aRelease = (releaseTime == 0.0f) ? (0.0f) : expf(-1.0f / (releaseTime * fs));
+    attackTime = userParams[attack].getUparamVal();
+    releaseTime = userParams[release].getUparamVal();
     
     if (leftLevelDetector == nullptr && rightLevelDetector == nullptr) {
         leftLevelDetector   = new PeakLevelDetector(sampleRate);
@@ -246,7 +247,7 @@ void PluginAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& 
     for (int i = 0; i < buffer.getNumSamples(); i++) {
         // Peak detector
         peakOutL = leftLevelDetector->tick(leftChannelData[i]);
-        peakOutR = leftLevelDetector->tick(leftChannelData[i]);
+        peakOutR = rightLevelDetector->tick(rightChannelData[i]);
         peakSum = (peakOutL + peakOutR) * 0.5f;
         
         // Convert to db
@@ -259,16 +260,18 @@ void PluginAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& 
         else {
             gainDb = -(peakSumDb - thresholdDb) * (1.f - 1.f/aRatio);
         }
-
+        
         // Gain dynamics (attack and release)
-//        gainDb = gainDymanics->tick(gainDb);
+        gainDb = gainDymanics->tick(gainDb);
         
         // Convert to Linear
         gain = dB2mag(gainDb);
-
+        
         // Apply gain
         leftChannelData[i]  *= gain;
         rightChannelData[i] *= gain;
+        
+//        rightChannelData[i] = gain;           // Debug: Gain Dynamics
     }
 }
 

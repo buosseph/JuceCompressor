@@ -12,6 +12,9 @@
               jucerVersion="3.1.0">
   <MAINGROUP id="avlI4O" name="BU-P05-Compressor">
     <GROUP id="{64536B46-BF38-D0BF-5341-33FB5A75BEA9}" name="Source">
+      <FILE id="gjWEaY" name="GainDynamics.cpp" compile="1" resource="0"
+            file="Source/GainDynamics.cpp"/>
+      <FILE id="fPRYmN" name="GainDynamics.h" compile="0" resource="0" file="Source/GainDynamics.h"/>
       <FILE id="LJSEJR" name="PeakLevelDetector.cpp" compile="1" resource="0"
             file="Source/PeakLevelDetector.cpp"/>
       <FILE id="Sy0HO4" name="PeakLevelDetector.h" compile="0" resource="0"

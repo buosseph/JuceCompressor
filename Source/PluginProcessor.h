@@ -14,7 +14,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "UParam.h"
 #include "PeakLevelDetector.h"
-#include "LeakyIntegrator.h"
+#include "GainDynamics.h"
 
 #define dB(x) 20.0 * ((x) > 0.00001 ? log10(x) : -5.0)
 #define dB2mag(x) pow(10.0, (x) / 20.0)
@@ -92,7 +92,7 @@ private:
     const float DEFAULT_VST_ATTACK      = 0.2f;
     const float DEFAULT_VST_RELEASE     = 0.5f;
     
-    float fs, thresholdDb, aRatio, attackTime, releaseTime, aAttack, aRelease;
+    float fs, thresholdDb, aRatio, attackTime, releaseTime, aAttack, aRelease, b0, lastGainDb;
     
     // Peak Level Detectors
     ScopedPointer<PeakLevelDetector> leftLevelDetector, rightLevelDetector;
