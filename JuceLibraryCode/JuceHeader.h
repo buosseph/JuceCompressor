@@ -38,7 +38,7 @@
 #if ! JUCE_DONT_DECLARE_PROJECTINFO
 namespace ProjectInfo
 {
-    const char* const  projectName    = "BU-P05-Compressor";
+    const char* const  projectName    = "JuceCompressor";
     const char* const  versionString  = "1.0.0";
     const int          versionNumber  = 0x10000;
 }

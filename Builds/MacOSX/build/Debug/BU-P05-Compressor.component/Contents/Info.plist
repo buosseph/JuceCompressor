@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>BuildMachineOSBuild</key>
-	<string>13F34</string>
+	<string>13F1077</string>
 	<key>CFBundleExecutable</key>
 	<string>BU-P05-Compressor</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.BUP05Compressor</string>
+	<string>com.yourcompany.JuceCompressor</string>
 	<key>CFBundleName</key>
-	<string>BU-P05-Compressor</string>
+	<string>JuceCompressor</string>
 	<key>CFBundlePackageType</key>
 	<string>TDMw</string>
 	<key>CFBundleShortVersionString</key>

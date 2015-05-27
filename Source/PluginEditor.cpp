@@ -114,7 +114,7 @@ PluginAudioProcessorEditor::PluginAudioProcessorEditor (PluginAudioProcessor& p)
     ratioSlider     ->setDoubleClickReturnValue(true, processor.DEFAULT_RATIO);
     attackSlider    ->setDoubleClickReturnValue(true, processor.DEFAULT_ATTACK * 1000.f);
     releaseSlider   ->setDoubleClickReturnValue(true, processor.DEFAULT_RELEASE * 1000.f);
-    
+
     thresholdSlider ->setTextValueSuffix("dB");
     ratioSlider     ->setTextValueSuffix(":1");
     attackSlider    ->setTextValueSuffix("ms");

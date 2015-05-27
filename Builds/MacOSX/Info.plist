@@ -8,9 +8,9 @@
     <key>CFBundleIconFile</key>
     <string></string>
     <key>CFBundleIdentifier</key>
-    <string>com.yourcompany.BUP05Compressor</string>
+    <string>com.brianuosseph.JuceCompressor</string>
     <key>CFBundleName</key>
-    <string>BU-P05-Compressor</string>
+    <string>JuceCompressor</string>
     <key>CFBundlePackageType</key>
     <string>TDMw</string>
     <key>CFBundleSignature</key>
